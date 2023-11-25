@@ -22,20 +22,15 @@ const tempProduct = fs.readFileSync(
 
 /// replacing the templates placeholder with the data
 const replacePlaceHolder = function (tempCards, element) {
+
     let output = tempCards.replace(/{%PRODUCTNAME%}/g, element.productName);
 
     output = output.replace(/{%COUNTRY%}/g, element.from);
-
     output = output.replace(/{%IMAGE%}/g, element.image);
-
     output = output.replace(/{%VITAMINS%}/g, element.nutrients);
-
     output = output.replace(/{%QUANTITY%}/g, element.quantity);
-
     output = output.replace(/{%PRICE%}/g, element.price);
-
     output = output.replace(/{%DESCRIPTION%}/g, element.description);
-
     output = output.replace(/{%ID%}/g, element.id);
 
     if(!element.organic){
@@ -47,28 +42,28 @@ const replacePlaceHolder = function (tempCards, element) {
 
 // server
 const server = http.createServer((req, res) => {
-    // parsing the url into an object
     const {query, pathname} = url.parse(req.url, true)
 
     // overview
     if (pathname === "/overview") {
-        // templating
+        res.writeHead(200, {'Content-Type':'application/json'})
+
         const cardHtml = dataObj.map((element) =>
             replacePlaceHolder(tempCards, element)
         ).join('');
-
         const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardHtml)
-
         res.end(output);
     }
 
+    // product
     else if (pathname === '/products'){
+        res.writeHead(200, {'Content-Type':'application/json'})
+
         const product = dataObj[query.id]
         const output = replacePlaceHolder(tempProduct, product)
         res.end(output)
     }
 
-    // page not found
     else{
         res.end('sorry page not found')
     }
