@@ -1,4 +1,7 @@
-# Node.js Templating Project
+# Node Form 
+### Templating Project
+<img width="948" alt="Screenshot 2023-11-25 091813" src="https://github.com/VenkatRaman3103/node-express-mongoDB-projects/assets/145652521/f496b5bf-c566-47fa-884c-6e7d5b5ff4d8">
+<img width="948" alt="Screenshot 2023-11-25 091846" src="https://github.com/VenkatRaman3103/node-express-mongoDB-projects/assets/145652521/f6cd2ead-5a50-46e7-b745-601e4f2ae7a1">
 
 This is a Node.js project that focuses on templating, showcasing the use of templates to generate dynamic HTML content. The project includes a simple server that serves overview and product pages using templates and data from a JSON file.
 
