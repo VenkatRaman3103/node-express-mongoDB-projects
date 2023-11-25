@@ -44,7 +44,7 @@ const server = http.createServer((req, res) => {
     const { query, pathname } = url.parse(req.url, true);
 
     // overview
-    if (pathname === "/overview") {
+    if (pathname === "/overview" || pathname === '/') {
         res.writeHead(200, { "Content-Type": "text/html" });
 
         const cardHtml = dataObj
