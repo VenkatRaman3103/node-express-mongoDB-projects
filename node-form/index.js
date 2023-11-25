@@ -3,7 +3,7 @@ const http = require("http");
 const url = require("url");
 
 // data
-const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const data = fs.readFileSync(`${__dirname}/data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
 
 // templates
@@ -22,7 +22,6 @@ const tempProduct = fs.readFileSync(
 
 /// replacing the templates placeholder with the data
 const replacePlaceHolder = function (tempCards, element) {
-
     let output = tempCards.replace(/{%PRODUCTNAME%}/g, element.productName);
 
     output = output.replace(/{%COUNTRY%}/g, element.from);
@@ -33,8 +32,8 @@ const replacePlaceHolder = function (tempCards, element) {
     output = output.replace(/{%DESCRIPTION%}/g, element.description);
     output = output.replace(/{%ID%}/g, element.id);
 
-    if(!element.organic){
-        output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic')
+    if (!element.organic) {
+        output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
     }
 
     return output;
@@ -42,30 +41,29 @@ const replacePlaceHolder = function (tempCards, element) {
 
 // server
 const server = http.createServer((req, res) => {
-    const {query, pathname} = url.parse(req.url, true)
+    const { query, pathname } = url.parse(req.url, true);
 
     // overview
     if (pathname === "/overview") {
-        res.writeHead(200, {'Content-Type':'application/json'})
+        // res.writeHead(200, { "Content-Type": "application/json" });
 
-        const cardHtml = dataObj.map((element) =>
-            replacePlaceHolder(tempCards, element)
-        ).join('');
-        const output = tempOverview.replace('{%PRODUCT_CARDS%}', cardHtml)
+        const cardHtml = dataObj
+            .map((element) => replacePlaceHolder(tempCards, element))
+            .join("");
+        const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardHtml);
+
         res.end(output);
     }
 
     // product
-    else if (pathname === '/products'){
-        res.writeHead(200, {'Content-Type':'application/json'})
+    else if (pathname === "/products") {
+        res.writeHead(200, { "Content-Type": "application/json" });
 
-        const product = dataObj[query.id]
-        const output = replacePlaceHolder(tempProduct, product)
-        res.end(output)
-    }
-
-    else{
-        res.end('sorry page not found')
+        const product = dataObj[query.id];
+        const output = replacePlaceHolder(tempProduct, product);
+        res.end(output);
+    } else {
+        res.end("sorry page not found");
     }
 });
 
