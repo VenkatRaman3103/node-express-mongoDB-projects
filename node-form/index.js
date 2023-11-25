@@ -57,7 +57,7 @@ const server = http.createServer((req, res) => {
 
     // product
     else if (pathname === "/products") {
-        res.writeHead(200, { "Content-Type": "application/json" });
+        res.writeHead(200, { "Content-Type": "text/html" });
 
         const product = dataObj[query.id];
         const output = replacePlaceHolder(tempProduct, product);
