@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
 
     // overview
     if (pathname === "/overview") {
-        // res.writeHead(200, { "Content-Type": "application/json" });
+        res.writeHead(200, { "Content-Type": "text/html" });
 
         const cardHtml = dataObj
             .map((element) => replacePlaceHolder(tempCards, element))
